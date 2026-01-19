@@ -20,6 +20,16 @@ func TestSum(t *testing.T) {
 		require.NoError(err)
 		assert.Equal(exepected, actual)
 	})
+	t.Run("list must have at least 1 value", func (t *testing.T){
+		assert := assert.New(t)
+		require := require.New(t)
+		slice := []int{}
+
+		_, err := Sum(slice)
+
+		require.Error(err)
+		assert.EqualError(err, "slice must have at least 1 value")
+	})
 }
 
 func ExampleSum() {
