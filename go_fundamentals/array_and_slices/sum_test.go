@@ -21,7 +21,7 @@ func TestSum(t *testing.T) {
 }
 
 func TestSumAll(t *testing.T) {
-	t.Run("should return an array with the total of N slices", func (t *testing.T){
+	t.Run("should return a slice with the total of N slices", func (t *testing.T){
 		assert := assert.New(t)
 		require := require.New(t)
 
@@ -56,6 +56,45 @@ func TestSumAll(t *testing.T) {
 
 		require.Error(err)
 		assert.EqualError(err, "SumAll must received at least 1 list")
+	})
+}
+
+func TestSumAllTails(t *testing.T) {
+	t.Run("should return a slice with the sum of all list tails", func (t *testing.T) {
+		assert := assert.New(t)
+		require := require.New(t)
+
+		expected := []int{5, 11, 17}
+		actual, err := SumAllTails(
+			[]int{1, 2, 3},
+			[]int{4, 5, 6},
+			[]int{7, 8, 9},
+		)
+
+		require.NoError(err)
+		assert.Equal(expected, actual)
+	})
+	t.Run("all lists must have at least 2 values", func (t *testing.T){
+		assert := assert.New(t)
+		require := require.New(t)
+
+		_, err := SumAllTails(
+			[]int{1, 2, 3},
+			[]int{4, 5, 6},
+			[]int{7},
+		)
+
+		require.Error(err)
+		assert.EqualError(err, "all lists must have at least 2 values")
+	})
+	t.Run("must have at least 1 list", func (t *testing.T){
+		assert := assert.New(t)
+		require := require.New(t)
+
+		_, err := SumAllTails()
+
+		require.Error(err)
+		assert.EqualError(err, "SumAllTails must received at least 1 list")
 	})
 }
 
