@@ -35,19 +35,6 @@ func TestSumAll(t *testing.T) {
 		require.NoError(err)
 		assert.Equal(expected, actual)
 	})
-	t.Run("all lists must have at least 1 value", func (t *testing.T){
-		assert := assert.New(t)
-		require := require.New(t)
-
-		_, err := SumAll(
-			[]int{1, 2, 3},
-			[]int{4, 5, 6},
-			[]int{},
-		)
-
-		require.Error(err)
-		assert.EqualError(err, "all lists must have at least 1 value")
-	})
 	t.Run("must have at least 1 list", func (t *testing.T){
 		assert := assert.New(t)
 		require := require.New(t)
@@ -73,19 +60,6 @@ func TestSumAllTails(t *testing.T) {
 
 		require.NoError(err)
 		assert.Equal(expected, actual)
-	})
-	t.Run("all lists must have at least 2 values", func (t *testing.T){
-		assert := assert.New(t)
-		require := require.New(t)
-
-		_, err := SumAllTails(
-			[]int{1, 2, 3},
-			[]int{4, 5, 6},
-			[]int{7},
-		)
-
-		require.Error(err)
-		assert.EqualError(err, "all lists must have at least 2 values")
 	})
 	t.Run("must have at least 1 list", func (t *testing.T){
 		assert := assert.New(t)

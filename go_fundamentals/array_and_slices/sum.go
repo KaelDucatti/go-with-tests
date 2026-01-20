@@ -15,36 +15,32 @@ func SumAll(slices ...[]int) ([]int, error) {
 		return nil, errors.New("SumAll must received at least 1 list")
 	}
 	
+	var totals []int
 	for _, slice := range slices {
 		if len(slice) == 0 {
-			return nil, errors.New("all lists must have at least 1 value")
+			totals = append(totals, 0)
+		} else {
+			totals = append(totals, Sum(slice))
 		}
 	}
 
-	var total []int
-	for _, slice := range slices {
-		total = append(total, Sum(slice))
-	}
-
-	return total, nil
+	return totals, nil
 }
 
 func SumAllTails(slices ...[]int) ([]int, error) {
-	if len(slices) == 0{
+	if len(slices) == 0 {
 		return nil, errors.New("SumAllTails must received at least 1 list")
 	}
 
+	var totals []int
 	for _, slice := range slices {
-		if len(slice) < 2 {
-			return nil, errors.New("all lists must have at least 2 values")
+		if len(slice) == 0 {
+			totals = append(totals, 0)
+		} else {
+			tail := slice[1:]
+			totals = append(totals, Sum(tail))
 		}
 	}
 
-	var total []int
-	for _, slice := range slices {
-		tail := slice[1:]
-		total = append(total, Sum(tail))
-	}
-
-	return total, nil
+	return totals, nil
 }
