@@ -2,30 +2,28 @@ package array_and_slices
 
 import "errors"
 
-func Sum(slice []int) (int, error) {
-	if len(slice) == 0 {
-		return 0, errors.New("the list must have at least 1 value")
-	}
-
+func Sum(slice []int) int {
 	var total int
 	for _, value := range slice {
 		total += value
 	}
-	return total, nil
+	return total
 }
 
-func SumAll(matrix [][]int) ([]int, error) {
-	for i := 0; i < len(matrix); i++ {
-		if len(matrix[i]) <= 0 {
+func SumAll(slices ...[]int) ([]int, error) {
+	if len(slices) == 0 {
+		return nil, errors.New("SumAll must received at least 1 list")
+	}
+	
+	for _, slice := range slices {
+		if len(slice) == 0 {
 			return nil, errors.New("all lists must have at least 1 value")
 		}
 	}
-	
-	total := make([]int, len(matrix))
-	for i := 0; i < len(matrix); i++ {
-		for j := 0; j < len(matrix[i]); j++ {
-			total[i] += matrix[i][j]
-		} 
+
+	var total []int
+	for _, slice := range slices {
+		total = append(total, Sum(slice))
 	}
 
 	return total, nil
