@@ -88,6 +88,16 @@ func ExampleSumAll() {
 	// Output: [6 15 24]
 }
 
+func ExampleSumAllTails() {
+	totals, _ := SumAllTails(
+		[]int{1, 2, 3},
+		[]int{4, 5, 6},
+		[]int{7, 8, 9},
+	)
+	fmt.Println(totals)
+	// Output: [5 11 17]
+}
+
 func BenchmarkSum(b *testing.B) {
 	for b.Loop() {
 		Sum([]int{1, 2, 3, 4, 5})
@@ -100,6 +110,16 @@ func BenchmarkSumAll(b *testing.B) {
 			[]int{1, 2, 3},
 			[]int{4, 5, 6},
 			[]int{7, 8, 9},	
+		)
+	}
+}
+
+func BenchmarkSumAllTails(b *testing.B) {
+	for b.Loop() {
+		SumAllTails(
+			[]int{1, 2, 3},
+			[]int{4, 5, 6},
+			[]int{7, 8, 9},
 		)
 	}
 }
