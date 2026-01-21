@@ -61,6 +61,19 @@ func TestSumAllTails(t *testing.T) {
 		require.NoError(err)
 		assert.Equal(expected, actual)
 	})
+	t.Run("should safely make the sum of a void list", func (t *testing.T) {
+		require := require.New(t)
+
+		expected := []int{0, 11, 17}
+		actual, err := SumAllTails(
+			[]int{},
+			[]int{4, 5, 6},
+			[]int{7, 8, 9},
+		)
+
+		require.NoError(err)
+		require.Equal(expected, actual)
+	})
 	t.Run("must have at least 1 list", func (t *testing.T){
 		assert := assert.New(t)
 		require := require.New(t)
