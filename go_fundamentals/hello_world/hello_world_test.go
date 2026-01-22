@@ -1,6 +1,7 @@
 package hello_world
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -51,4 +52,10 @@ func TestHelloWorld(t *testing.T) {
 		
 		assert.Equal(want, got)
 	})
+}
+
+func ExampleGreeting() {
+	greet := Greeting("Kael", "pt-br")
+	fmt.Println(greet)
+	// Output: Olá, Kael
 }
