@@ -1,6 +1,7 @@
 package structs_methods_intefaces
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -48,4 +49,42 @@ func TestCircle(t *testing.T) {
 			})
 		}
 	})
+}
+
+func ExampleNewCircle() {
+	c, _ := NewCircle(10)
+	fmt.Println(c)
+	// Output: &{10}
+}
+
+func ExampleCircle_Perimeter() {
+	c, _ := NewCircle(10)
+	fmt.Println(c.Perimeter())
+	// Output: 62.83
+}
+
+func ExampleCircle_Area() {
+	c, _ := NewCircle(10)
+	fmt.Println(c.Area())
+	// Output: 314.15
+}
+
+func BenchmarkCircle(b *testing.B) {
+	for b.Loop() {
+		NewCircle(10)
+	}
+}
+
+func BenchmarkCircle_Perimeter(b *testing.B) {
+	c, _ := NewCircle(10)
+	for b.Loop() {
+		c.Perimeter()
+	}
+}
+
+func BenchmarkCircle_Area(b *testing.B) {
+	c, _ := NewCircle(10)
+	for b.Loop() {
+		c.Area()
+	}
 }

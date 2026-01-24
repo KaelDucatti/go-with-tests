@@ -56,14 +56,40 @@ func TestRectangle(t *testing.T) {
 	})
 }
 
-func ExampleRectangle() {
+func ExampleNewRectangle() {
 	r, _ := NewRectangle(5, 4)
 	fmt.Println(r)
 	// Output: &{5 4}
 }
 
+func ExampleRectangle_Perimeter() {
+	r, _ := NewRectangle(5, 4)
+	fmt.Println(r.Perimeter())
+	// Output: 18
+}
+
+func ExampleRectangle_Area() {
+	r, _ := NewRectangle(5, 4)
+	fmt.Println(r.Area())
+	// Output: 20
+}
+
 func BenchmarkRectangle(b *testing.B) {
 	for b.Loop() {
 		NewRectangle(5, 4)
+	}
+}
+
+func BenchmarkRectangle_Perimeter(b *testing.B) {
+	r, _ := NewRectangle(5, 4)
+	for b.Loop() {
+		r.Perimeter()
+	}
+}
+
+func BenchmarkRectangle_Area(b *testing.B) {
+	r, _ := NewRectangle(5, 4)
+	for b.Loop() {
+		r.Area()
 	}
 }

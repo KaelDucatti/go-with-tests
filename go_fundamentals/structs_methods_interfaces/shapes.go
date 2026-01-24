@@ -17,11 +17,3 @@ type Square struct {
 type Circle struct {
 	Radius	float32
 }
-
-func Area(f Form) float32 {
-	return f.Area()
-}
-
-func Perimeter(f Form) float32 {
-	return f.Perimeter()
-}

@@ -1,6 +1,7 @@
 package structs_methods_intefaces
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -55,4 +56,42 @@ func TestSquare(t *testing.T) {
 				}
 		})
 	})
+}
+
+func ExampleNewSquare() {
+	s, _ := NewSquare(5)
+	fmt.Println(s)
+	// Output: &{5}
+}
+
+func ExampleSquare_Perimeter() {
+	s, _ := NewSquare(5)
+	fmt.Println(s.Perimeter())
+	// Output: 20
+}
+
+func ExampleSquare_Area() {
+	s, _ := NewSquare(5)
+	fmt.Println(s.Area())
+	// Output: 25
+}
+
+func BenchmarkSquare(b *testing.B) {
+	for b.Loop() {
+		NewSquare(5)
+	}
+}
+
+func BenchmarkSquare_Perimeter(b *testing.B) {
+	s, _ := NewSquare(5)
+	for b.Loop() {
+		s.Perimeter()
+	}
+}
+
+func BenchmarkSquare_Area(b *testing.B) {
+	s, _ := NewSquare(5)
+	for b.Loop() {
+		s.Area()
+	}
 }
