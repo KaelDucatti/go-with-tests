@@ -4,11 +4,6 @@ import (
 	"errors"
 )
 
-type Rectangle struct {
-	Height 	float32
-	Width	float32
-}
-
 func NewRectangle(height, width float32) (*Rectangle, error) {
 	if height <= 0 || width <= 0 {
 		return nil, errors.New("neither value must be equal to or less than 0")
