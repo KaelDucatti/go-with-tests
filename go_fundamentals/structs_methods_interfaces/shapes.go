@@ -14,6 +14,10 @@ type Square struct {
 	Edge 	float32
 }
 
+type Circle struct {
+	Radius	float32
+}
+
 func Area(f Form) float32 {
 	return f.Area()
 }

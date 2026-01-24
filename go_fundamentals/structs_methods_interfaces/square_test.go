@@ -15,7 +15,7 @@ func TestSquare(t *testing.T) {
 			s, err := NewSquare(5)
 
 			expected := float32(20)
-			actual := Perimeter(s)
+			actual := s.Perimeter()
 
 			require.NoError(err)
 			require.Equal(expected, actual)
@@ -26,7 +26,7 @@ func TestSquare(t *testing.T) {
 			s, err := NewSquare(5)
 
 			expected := float32(25)
-			actual := Area(s)
+			actual := s.Area()
 
 			require.NoError(err)
 			require.Equal(expected, actual)

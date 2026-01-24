@@ -14,7 +14,7 @@ func TestRectangle(t *testing.T) {
 			r, err := NewRectangle(5, 4)
 			
 			expected := float32(18)
-			actual := Perimeter(r)
+			actual := r.Perimeter()
 	
 			require.NoError(err)
 			require.Equal(expected, actual)
@@ -24,7 +24,7 @@ func TestRectangle(t *testing.T) {
 			r, err := NewRectangle(5, 4)
 	
 			expected := float32(20)
-			actual := Area(r)
+			actual := r.Area()
 	
 			require.NoError(err)
 			require.Equal(expected, actual)
