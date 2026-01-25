@@ -1,8 +1,10 @@
 package structs_methods_intefaces
 
-import "errors"
+import (
+	"errors"
+	"math"
+)
 
-const PI = 3.1415
 
 func NewCircle(radius float32) (*Circle, error) {
 	if radius <= 0 {
@@ -13,9 +15,9 @@ func NewCircle(radius float32) (*Circle, error) {
 }
 
 func (c *Circle) Perimeter() float32 {
-	return PI * (2 * c.Radius)
+	return math.Pi * (2 * c.Radius)
 }
 
 func (c *Circle) Area() float32 {
-	return PI * (c.Radius * c.Radius)
+	return math.Pi * (c.Radius * c.Radius)
 }

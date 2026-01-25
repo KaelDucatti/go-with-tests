@@ -1,6 +1,12 @@
 package structs_methods_intefaces
 
-type Form interface {
+import (
+	"testing"
+
+	"github.com/stretchr/testify/require"
+)
+
+type Shape interface {
 	Area() 		float32
 	Perimeter() float32
 }
@@ -16,4 +22,13 @@ type Square struct {
 
 type Circle struct {
 	Radius	float32
+}
+
+func CheckPerimeter(t *testing.T, shape Shape, expected float32) {
+	t.Helper()
+	require := require.New(t)
+
+	actual := shape.Area()
+
+	require.Equal(expected, actual)
 }

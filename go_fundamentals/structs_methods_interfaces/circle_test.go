@@ -13,7 +13,7 @@ func TestCircle(t *testing.T) {
 			require := require.New(t)
 			c, err := NewCircle(10)
 
-			expected := float32(62.83)
+			expected := float32(62.831856)
 			actual := c.Perimeter()
 
 			require.NoError(err)
@@ -23,7 +23,7 @@ func TestCircle(t *testing.T) {
 			require := require.New(t)
 			c, err := NewCircle(10)
 
-			expected := float32(314.15)
+			expected := float32(314.15927)
 			actual := c.Area()
 
 			require.NoError(err)
@@ -60,13 +60,13 @@ func ExampleNewCircle() {
 func ExampleCircle_Perimeter() {
 	c, _ := NewCircle(10)
 	fmt.Println(c.Perimeter())
-	// Output: 62.83
+	// Output: 62.831856
 }
 
 func ExampleCircle_Area() {
 	c, _ := NewCircle(10)
 	fmt.Println(c.Area())
-	// Output: 314.15
+	// Output: 314.15927
 }
 
 func BenchmarkCircle(b *testing.B) {
