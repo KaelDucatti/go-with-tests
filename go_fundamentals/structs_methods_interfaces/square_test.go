@@ -7,11 +7,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-
-
 func TestSquare(t *testing.T) {
-	t.Run("Success Cases", func (t *testing.T) {
-		t.Run("should return the square perimeter", func (t *testing.T) {
+	t.Run("Success Cases", func(t *testing.T) {
+		t.Run("should return the square perimeter", func(t *testing.T) {
 			require := require.New(t)
 			s, err := NewSquare(5)
 
@@ -20,9 +18,9 @@ func TestSquare(t *testing.T) {
 
 			require.NoError(err)
 			require.Equal(expected, actual)
-			
+
 		})
-		t.Run("should return the square area", func (t *testing.T) {
+		t.Run("should return the square area", func(t *testing.T) {
 			require := require.New(t)
 			s, err := NewSquare(5)
 
@@ -33,28 +31,28 @@ func TestSquare(t *testing.T) {
 			require.Equal(expected, actual)
 		})
 	})
-	t.Run("Validation Erros", func (t *testing.T) {
+	t.Run("Validation Erros", func(t *testing.T) {
 		t.Run(
-			"should return error when edge is equal to or less than 0", 
-			func (t *testing.T) {
+			"should return error when edge is equal to or less than 0",
+			func(t *testing.T) {
 				require := require.New(t)
-				
-				testCases := []struct{
-					name 	string
-					edge	float32
+
+				testCases := []struct {
+					name string
+					edge float32
 				}{
 					{"edge is zero", 0},
 					{"edge is negative", -5},
 				}
 
 				for _, test := range testCases {
-					t.Run(test.name, func (t *testing.T) {
+					t.Run(test.name, func(t *testing.T) {
 						_, err := NewSquare(test.edge)
 						require.Error(err)
 						require.EqualError(err, "value must be equal to or greater than 0")
 					})
 				}
-		})
+			})
 	})
 }
 
@@ -78,20 +76,20 @@ func ExampleSquare_Area() {
 
 func BenchmarkSquare(b *testing.B) {
 	for b.Loop() {
-		NewSquare(5)
+		_, _ = NewSquare(5)
 	}
 }
 
 func BenchmarkSquare_Perimeter(b *testing.B) {
 	s, _ := NewSquare(5)
 	for b.Loop() {
-		s.Perimeter()
+		_ = s.Perimeter()
 	}
 }
 
 func BenchmarkSquare_Area(b *testing.B) {
 	s, _ := NewSquare(5)
 	for b.Loop() {
-		s.Area()
+		_ = s.Area()
 	}
 }

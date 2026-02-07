@@ -9,7 +9,7 @@ import (
 )
 
 func TestRepeat(t *testing.T) {
-	t.Run("should print 'a' 5 times", func (t *testing.T){
+	t.Run("should print 'a' 5 times", func(t *testing.T) {
 		assert := assert.New(t)
 		require := require.New(t)
 
@@ -19,7 +19,7 @@ func TestRepeat(t *testing.T) {
 		require.NoError(err)
 		assert.Equal(expected, actual)
 	})
-	t.Run("should return 'value cannot be empty'", func (t *testing.T){
+	t.Run("should return 'value cannot be empty'", func(t *testing.T) {
 		require := require.New(t)
 
 		expected := "value cannot be empty"
@@ -28,7 +28,7 @@ func TestRepeat(t *testing.T) {
 		require.Error(err)
 		require.EqualError(err, expected)
 	})
-	t.Run("shoud return 'count must be greater than 0'", func (t *testing.T){
+	t.Run("shoud return 'count must be greater than 0'", func(t *testing.T) {
 		require := require.New(t)
 
 		expected := "count must be greater than 0"
@@ -47,6 +47,6 @@ func ExampleRepeat() {
 
 func BenchmarkRepeat(b *testing.B) {
 	for b.Loop() {
-		Repeat("a", 5)
+		_, _ = Repeat("a", 5)
 	}
 }

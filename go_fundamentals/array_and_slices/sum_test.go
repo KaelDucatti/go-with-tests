@@ -9,7 +9,7 @@ import (
 )
 
 func TestSum(t *testing.T) {
-	t.Run("should return the array summarize", func (t *testing.T){
+	t.Run("should return the array summarize", func(t *testing.T) {
 		assert := assert.New(t)
 		slice := []int{1, 2, 3, 4, 5}
 
@@ -21,7 +21,7 @@ func TestSum(t *testing.T) {
 }
 
 func TestSumAll(t *testing.T) {
-	t.Run("should return a slice with the total of N slices", func (t *testing.T){
+	t.Run("should return a slice with the total of N slices", func(t *testing.T) {
 		assert := assert.New(t)
 		require := require.New(t)
 
@@ -35,7 +35,7 @@ func TestSumAll(t *testing.T) {
 		require.NoError(err)
 		assert.Equal(expected, actual)
 	})
-	t.Run("should safely make the sum of a void list", func (t *testing.T) {
+	t.Run("should safely make the sum of a void list", func(t *testing.T) {
 		require := require.New(t)
 
 		expected := []int{0, 11, 17}
@@ -48,7 +48,7 @@ func TestSumAll(t *testing.T) {
 		require.NoError(err)
 		require.Equal(expected, actual)
 	})
-	t.Run("must have at least 1 list", func (t *testing.T){
+	t.Run("must have at least 1 list", func(t *testing.T) {
 		assert := assert.New(t)
 		require := require.New(t)
 
@@ -60,7 +60,7 @@ func TestSumAll(t *testing.T) {
 }
 
 func TestSumAllTails(t *testing.T) {
-	t.Run("should return a slice with the sum of all list tails", func (t *testing.T) {
+	t.Run("should return a slice with the sum of all list tails", func(t *testing.T) {
 		assert := assert.New(t)
 		require := require.New(t)
 
@@ -74,7 +74,7 @@ func TestSumAllTails(t *testing.T) {
 		require.NoError(err)
 		assert.Equal(expected, actual)
 	})
-	t.Run("should safely make the sum of a void list", func (t *testing.T) {
+	t.Run("should safely make the sum of a void list", func(t *testing.T) {
 		require := require.New(t)
 
 		expected := []int{0, 11, 17}
@@ -87,7 +87,7 @@ func TestSumAllTails(t *testing.T) {
 		require.NoError(err)
 		require.Equal(expected, actual)
 	})
-	t.Run("must have at least 1 list", func (t *testing.T){
+	t.Run("must have at least 1 list", func(t *testing.T) {
 		assert := assert.New(t)
 		require := require.New(t)
 
@@ -132,17 +132,17 @@ func BenchmarkSum(b *testing.B) {
 
 func BenchmarkSumAll(b *testing.B) {
 	for b.Loop() {
-		SumAll(
+		_, _ = SumAll(
 			[]int{1, 2, 3},
 			[]int{4, 5, 6},
-			[]int{7, 8, 9},	
+			[]int{7, 8, 9},
 		)
 	}
 }
 
 func BenchmarkSumAllTails(b *testing.B) {
 	for b.Loop() {
-		SumAllTails(
+		_, _ = SumAllTails(
 			[]int{1, 2, 3},
 			[]int{4, 5, 6},
 			[]int{7, 8, 9},

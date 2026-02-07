@@ -9,7 +9,7 @@ import (
 
 func TestCircle(t *testing.T) {
 	t.Run("Success Cases", func(t *testing.T) {
-		t.Run("should return the circle perimeter", func (t *testing.T) {
+		t.Run("should return the circle perimeter", func(t *testing.T) {
 			require := require.New(t)
 			c, err := NewCircle(10)
 
@@ -19,7 +19,7 @@ func TestCircle(t *testing.T) {
 			require.NoError(err)
 			require.Equal(expected, actual)
 		})
-		t.Run("should return the circle area", func (t *testing.T) {
+		t.Run("should return the circle area", func(t *testing.T) {
 			require := require.New(t)
 			c, err := NewCircle(10)
 
@@ -30,19 +30,19 @@ func TestCircle(t *testing.T) {
 			require.Equal(expected, actual)
 		})
 	})
-	t.Run("Validation Errors", func (t *testing.T) {
+	t.Run("Validation Errors", func(t *testing.T) {
 		require := require.New(t)
 
 		testCases := []struct {
-			name	string
-			radius	float32
+			name   string
+			radius float32
 		}{
 			{"radius is zero", 0},
 			{"radius is negative", -10},
 		}
 
 		for _, test := range testCases {
-			t.Run(test.name, func (t *testing.T) {
+			t.Run(test.name, func(t *testing.T) {
 				_, err := NewCircle(test.radius)
 				require.Error(err)
 				require.EqualError(err, "radius value cannot be equal to or less than 0")
@@ -71,20 +71,20 @@ func ExampleCircle_Area() {
 
 func BenchmarkCircle(b *testing.B) {
 	for b.Loop() {
-		NewCircle(10)
+		_, _ = NewCircle(10)
 	}
 }
 
 func BenchmarkCircle_Perimeter(b *testing.B) {
 	c, _ := NewCircle(10)
 	for b.Loop() {
-		c.Perimeter()
+		_ = c.Perimeter()
 	}
 }
 
 func BenchmarkCircle_Area(b *testing.B) {
 	c, _ := NewCircle(10)
 	for b.Loop() {
-		c.Area()
+		_ = c.Area()
 	}
 }
