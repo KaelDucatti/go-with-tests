@@ -36,6 +36,7 @@ func TestWallet(t *testing.T) {
 		t.Run("should fail when deposit is equals to or less than 0", func(t *testing.T) {
 			require := require.New(t)
 			wallet := NewWallet()
+			startingBalance := wallet.Balance()
 
 			testCases := []struct {
 				testName string
@@ -49,24 +50,26 @@ func TestWallet(t *testing.T) {
 				t.Run(test.testName, func(t *testing.T) {
 					err := wallet.Deposit(test.balance)
 					require.Error(err)
-					require.EqualError(err, "deposit value must be equals to or greater than 0")
+					require.Equal(startingBalance, wallet.Balance())
+					require.ErrorIs(err, ErrImpossibleDepositValue)
 				})
 			}
 		})
 		t.Run("should fail when withdraw is greater than balance", func(t *testing.T) {
 			require := require.New(t)
 			wallet := &Wallet{balance: Bitcoin(10)}
+			startingBalance := wallet.Balance()
 
 			err := wallet.Withdraw(Bitcoin(11))
 
 			require.Error(err)
-			require.EqualError(
-				err, "the withdraw value connot be greater than the actual balance",
-			)
+			require.Equal(startingBalance, wallet.Balance())
+			require.ErrorIs(err, ErrWithdrawGreaterThanBalance)
 		})
 		t.Run("should fail when withdraw is equals to or less than 0", func(t *testing.T) {
 			require := require.New(t)
 			wallet := &Wallet{balance: Bitcoin(10)}
+			startingBalance := wallet.Balance()
 
 			testCases := []struct {
 				testName string
@@ -79,7 +82,8 @@ func TestWallet(t *testing.T) {
 			for _, test := range testCases {
 				err := wallet.Withdraw(test.balance)
 				require.Error(err)
-				require.EqualError(err, "the withdraw value cannot be equals to or less than 0")
+				require.Equal(startingBalance, wallet.Balance())
+				require.ErrorIs(err, ErrWithdrawEqualLessThanZero)
 			}
 		})
 	})
