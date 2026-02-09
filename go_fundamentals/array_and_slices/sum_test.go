@@ -39,7 +39,7 @@ func TestSumAll(t *testing.T) {
 		require := require.New(t)
 
 		expected := []int{0, 11, 17}
-		actual, err := SumAllTails(
+		actual, err := SumAll(
 			[]int{},
 			[]int{4, 5, 6},
 			[]int{7, 8, 9},
