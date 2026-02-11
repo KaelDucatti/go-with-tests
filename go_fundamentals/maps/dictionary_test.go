@@ -22,12 +22,13 @@ func TestDictionary(t *testing.T) {
 		t.Run("Add a New key-value", func(t *testing.T) {
 			require := require.New(t)
 			dict := Dictionary{}
-			err := dict.Add("test", "this is a test")
 
+			errAdd := dict.Add("test", "this is a test")
 			expected := "this is a test"
-			actual := dict["test"]
+			actual, errSearch := dict.Search("test")
 
-			require.NoError(err)
+			require.NoError(errAdd)
+			require.NoError(errSearch)
 			require.Equal(expected, actual)
 		})
 	})
@@ -49,6 +50,15 @@ func TestDictionary(t *testing.T) {
 
 			require.Error(err)
 			require.ErrorIs(err, ErrAddVoidKey)
+		})
+		t.Run("Key Already Exists", func(t *testing.T) {
+			require := require.New(t)
+			dict := Dictionary{"test": "this is a test"}
+
+			err := dict.Add("test", "")
+
+			require.Error(err)
+			require.ErrorIs(err, ErrKeyAlreadyExits)
 		})
 	})
 }
