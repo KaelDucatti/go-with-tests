@@ -1,19 +1,22 @@
 package maps
 
-import "errors"
-
-var (
-	ErrWordNotFound    error = errors.New("key not found")
-	ErrAddVoidKey      error = errors.New("key value cannot be void")
-	ErrKeyAlreadyExits error = errors.New("key already exists in dictionary")
+const (
+	ErrKeyNotFound      = DictionaryErr("key not found")
+	ErrAddVoidKey       = DictionaryErr("key cannot be empty")
+	ErrKeyAlreadyExists = DictionaryErr("key already exists")
 )
 
 type Dictionary map[string]string
+type DictionaryErr string
+
+func (de DictionaryErr) Error() string {
+	return string(de)
+}
 
 func (d Dictionary) Search(key string) (string, error) {
 	result, ok := d[key]
 	if !ok {
-		return "", ErrWordNotFound
+		return "", ErrKeyNotFound
 	}
 	return result, nil
 }
@@ -23,7 +26,7 @@ func (d Dictionary) Add(key, value string) error {
 		return ErrAddVoidKey
 	}
 	if _, exists := d[key]; exists {
-		return ErrKeyAlreadyExits
+		return ErrKeyAlreadyExists
 	}
 	d[key] = value
 	return nil

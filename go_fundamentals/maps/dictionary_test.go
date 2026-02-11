@@ -40,7 +40,7 @@ func TestDictionary(t *testing.T) {
 			_, err := dict.Search("test")
 
 			require.Error(err)
-			require.ErrorIs(err, ErrWordNotFound)
+			require.EqualError(err, ErrKeyNotFound.Error())
 		})
 		t.Run("Add Void Key", func(t *testing.T) {
 			require := require.New(t)
@@ -49,7 +49,7 @@ func TestDictionary(t *testing.T) {
 			err := dict.Add("", "this is a test")
 
 			require.Error(err)
-			require.ErrorIs(err, ErrAddVoidKey)
+			require.EqualError(err, ErrAddVoidKey.Error())
 		})
 		t.Run("Key Already Exists", func(t *testing.T) {
 			require := require.New(t)
@@ -58,7 +58,7 @@ func TestDictionary(t *testing.T) {
 			err := dict.Add("test", "")
 
 			require.Error(err)
-			require.ErrorIs(err, ErrKeyAlreadyExits)
+			require.EqualError(err, ErrKeyAlreadyExists.Error())
 		})
 	})
 }
