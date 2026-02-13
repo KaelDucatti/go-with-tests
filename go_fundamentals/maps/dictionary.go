@@ -2,7 +2,7 @@ package maps
 
 const (
 	ErrKeyNotFound      = DictionaryErr("key not found")
-	ErrAddVoidKey       = DictionaryErr("key cannot be empty")
+	ErrVoidKey          = DictionaryErr("key cannot be empty")
 	ErrKeyAlreadyExists = DictionaryErr("key already exists")
 )
 
@@ -23,10 +23,21 @@ func (d Dictionary) Search(key string) (string, error) {
 
 func (d Dictionary) Add(key, value string) error {
 	if key == "" {
-		return ErrAddVoidKey
+		return ErrVoidKey
 	}
 	if _, exists := d[key]; exists {
 		return ErrKeyAlreadyExists
+	}
+	d[key] = value
+	return nil
+}
+
+func (d Dictionary) Update(key, value string) error {
+	if key == "" {
+		return ErrVoidKey
+	}
+	if _, ok := d[key]; !ok {
+		return ErrKeyNotFound
 	}
 	d[key] = value
 	return nil

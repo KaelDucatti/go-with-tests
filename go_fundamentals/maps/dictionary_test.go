@@ -31,16 +31,28 @@ func TestDictionary(t *testing.T) {
 			require.NoError(errSearch)
 			require.Equal(expected, actual)
 		})
+		t.Run("Update a Value", func(t *testing.T) {
+			require := require.New(t)
+			dict := Dictionary{"test": "this is a test"}
+
+			errUpt := dict.Update("test", "test passed")
+			expected := "test passed"
+			actual, errSch := dict.Search("test")
+
+			require.NoError(errUpt)
+			require.NoError(errSch)
+			require.Equal(expected, actual)
+		})
 	})
 	t.Run("Validation Errors", func(t *testing.T) {
-		t.Run("Unknown Key", func(t *testing.T) {
+		t.Run("Search Key Not Found", func(t *testing.T) {
 			require := require.New(t)
 			dict := Dictionary{}
 
 			_, err := dict.Search("test")
 
 			require.Error(err)
-			require.EqualError(err, ErrKeyNotFound.Error())
+			require.ErrorIs(err, ErrKeyNotFound)
 		})
 		t.Run("Add Void Key", func(t *testing.T) {
 			require := require.New(t)
@@ -49,16 +61,37 @@ func TestDictionary(t *testing.T) {
 			err := dict.Add("", "this is a test")
 
 			require.Error(err)
-			require.EqualError(err, ErrAddVoidKey.Error())
+			require.ErrorIs(err, ErrVoidKey)
 		})
-		t.Run("Key Already Exists", func(t *testing.T) {
+		t.Run("Add Key Already Exists", func(t *testing.T) {
 			require := require.New(t)
 			dict := Dictionary{"test": "this is a test"}
 
-			err := dict.Add("test", "")
+			errAdd := dict.Add("test", "")
 
-			require.Error(err)
-			require.EqualError(err, ErrKeyAlreadyExists.Error())
+			require.Error(errAdd)
+			require.ErrorIs(errAdd, ErrKeyAlreadyExists)
+			require.Equal("this is a test", dict["test"])
+		})
+		t.Run("Update Void Key", func(t *testing.T) {
+			require := require.New(t)
+			dict := Dictionary{"test": "this is a test"}
+
+			errUpt := dict.Update("", "test did not pass")
+
+			require.Error(errUpt)
+			require.ErrorIs(errUpt, ErrVoidKey)
+			require.Equal("this is a test", dict["test"])
+		})
+		t.Run("Update Key Not Found", func(t *testing.T) {
+			require := require.New(t)
+			dict := Dictionary{"test": "this is a test"}
+
+			errUpt := dict.Update("not exists", "test did not pass")
+
+			require.Error(errUpt)
+			require.ErrorIs(errUpt, ErrKeyNotFound)
+			require.Equal("this is a test", dict["test"])
 		})
 	})
 }
@@ -77,9 +110,16 @@ func ExampleDictionary_Add() {
 	// Output: this is a test
 }
 
+func ExampleDictionary_Update() {
+	dict := Dictionary{"test": "this is a test"}
+	_ = dict.Update("test", "new value")
+	fmt.Println(dict["test"])
+	// Output: new value
+}
+
 func BenchmarkDictionary_Search(b *testing.B) {
+	dict := Dictionary{"test": "this is a test"}
 	for b.Loop() {
-		dict := Dictionary{"test": "this is a test"}
 		_, _ = dict.Search("test")
 	}
 }
@@ -88,5 +128,12 @@ func BenchmarkDictionary_Add(b *testing.B) {
 	for b.Loop() {
 		dict := Dictionary{}
 		_ = dict.Add("test", "this is a test")
+	}
+}
+
+func BenchmarkDictionary_Update(b *testing.B) {
+	dict := Dictionary{"test": "this is a test"}
+	for b.Loop() {
+		_ = dict.Update("test", "new value")
 	}
 }
