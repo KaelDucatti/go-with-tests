@@ -14,7 +14,7 @@ func SumAll(slices ...[]int) ([]int, error) {
 	if len(slices) == 0 {
 		return nil, errors.New("SumAll must received at least 1 list")
 	}
-	
+
 	var totals []int
 	for _, slice := range slices {
 		if len(slice) == 0 {

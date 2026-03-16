@@ -2,10 +2,10 @@ package hello_world
 
 import "fmt"
 
-var greetings = map[string]string {
-	"es"	: "Hola",
-	"pt-br"	: "Olá", 
-	"en"	: "Hello",
+var greetings = map[string]string{
+	"es":    "Hola",
+	"pt-br": "Olá",
+	"en":    "Hello",
 }
 
 func GreetingByLang(lang string) (value string) {

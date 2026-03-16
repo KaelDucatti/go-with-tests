@@ -5,7 +5,6 @@ import (
 	"math"
 )
 
-
 func NewCircle(radius float32) (*Circle, error) {
 	if radius <= 0 {
 		return nil, errors.New("radius value cannot be equal to or less than 0")
