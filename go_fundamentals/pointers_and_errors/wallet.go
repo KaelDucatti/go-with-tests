@@ -1,18 +1,14 @@
 package pointers_and_errors
 
-import "errors"
-
-var (
-	ErrImpossibleDepositValue error = errors.New(
-		"deposit value must be equals to or greater than 0",
-	)
-	ErrWithdrawGreaterThanBalance error = errors.New(
-		"the withdraw value connot be greater than the actual balance",
-	)
-	ErrWithdrawEqualLessThanZero error = errors.New(
-		"the withdraw value cannot be equals to or less than 0",
-	)
+const (
+	ErrInputIsNotPositive = ErrWallet("Input need to be a positeve number")
 )
+
+type ErrWallet string
+
+func (ew ErrWallet) Error() string {
+	return string(ew)
+}
 
 type Wallet struct {
 	balance Bitcoin
@@ -22,25 +18,21 @@ func NewWallet() *Wallet {
 	return &Wallet{}
 }
 
-func (w *Wallet) Deposit(value Bitcoin) error {
-	if value <= 0 {
-		return ErrImpossibleDepositValue
+func (w *Wallet) Deposit(balance float32) error {
+	if err := ValidateIfBalanceIsPositive(balance); err != nil {
+		return err
 	}
-	w.balance += value
-	return nil
-}
-
-func (w *Wallet) Withdraw(value Bitcoin) error {
-	if value > w.balance {
-		return ErrWithdrawGreaterThanBalance
-	}
-	if value <= 0 {
-		return ErrWithdrawEqualLessThanZero
-	}
-	w.balance -= value
+	w.balance = Bitcoin(balance)
 	return nil
 }
 
 func (w *Wallet) Balance() Bitcoin {
 	return w.balance
+}
+
+func ValidateIfBalanceIsPositive(balance float32) error {
+	if balance <= 0 {
+		return ErrInputIsNotPositive
+	}
+	return nil
 }
