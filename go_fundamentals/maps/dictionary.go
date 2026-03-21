@@ -1,43 +1,34 @@
 package maps
 
 const (
-	ErrKeyNotFound      = DictionaryErr("key not found")
-	ErrVoidKey          = DictionaryErr("key cannot be empty")
-	ErrKeyAlreadyExists = DictionaryErr("key already exists")
+	ErrKeyNotFound      = DictionaryErr("Key Not Found in Dictionary")
+	ErrKeyAlreadyExists = DictionaryErr("Key already exists in dictionary")
 )
 
-type Dictionary map[string]string
 type DictionaryErr string
 
 func (de DictionaryErr) Error() string {
 	return string(de)
 }
 
+type Dictionary map[string]string
+
+func NewDictionary() Dictionary {
+	return make(Dictionary)
+}
+
 func (d Dictionary) Search(key string) (string, error) {
-	result, ok := d[key]
-	if !ok {
+	value, exists := d[key]
+	if !exists {
 		return "", ErrKeyNotFound
 	}
-	return result, nil
+	return value, nil
 }
 
 func (d Dictionary) Add(key, value string) error {
-	if key == "" {
-		return ErrVoidKey
-	}
-	if _, exists := d[key]; exists {
+	_, exists := d[key]
+	if exists {
 		return ErrKeyAlreadyExists
-	}
-	d[key] = value
-	return nil
-}
-
-func (d Dictionary) Update(key, value string) error {
-	if key == "" {
-		return ErrVoidKey
-	}
-	if _, ok := d[key]; !ok {
-		return ErrKeyNotFound
 	}
 	d[key] = value
 	return nil

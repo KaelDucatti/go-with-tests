@@ -31,7 +31,7 @@ func (w *Wallet) Withdraw(amount float32) error {
 	if err := ValidateIfAmountIsPositive(amount); err != nil {
 		return err
 	}
-	if err := ValidateIfAmountIsLessThanBalance(amount, float32(w.Balance())); err != nil {
+	if err := ValidateIfAmountIsGreaterThanBalance(amount, float32(w.Balance())); err != nil {
 		return err
 	}
 	w.balance -= Bitcoin(amount)
@@ -49,7 +49,7 @@ func ValidateIfAmountIsPositive(amount float32) error {
 	return nil
 }
 
-func ValidateIfAmountIsLessThanBalance(amount, balance float32) error {
+func ValidateIfAmountIsGreaterThanBalance(amount, balance float32) error {
 	if amount > balance {
 		return ErrWithdrawIsGreaterThanBalance
 	}
