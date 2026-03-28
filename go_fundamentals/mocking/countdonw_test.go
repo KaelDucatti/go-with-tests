@@ -9,12 +9,35 @@ import (
 )
 
 func TestCountdown(t *testing.T) {
-	require := require.New(t)
-	buffer := &bytes.Buffer{}
+	t.Run("shold return the countdown", func(t *testing.T) {
+		require := require.New(t)
+		buffer := &bytes.Buffer{}
+		sleeper := &SpySleeper{}
+	
+		Countdown(buffer, sleeper)
+		expected := "3\n2\n1\nGo\n"
+		actual := buffer.String()
+	
+		require.Equal(expected, actual)
+		require.Equal(3, sleeper.Calls)
+	})
 
-	Countdown(buffer)
-	expected := "1\n2\n3\nGo\n"
-	actual := buffer.String()
+	t.Run("should return the SpyCountdownOperation list", func(t *testing.T) {
+		require := require.New(t)
+		sco := &SpyCountdownOperations{}
+		Countdown(sco, sco)
 
-	require.Equal(expected, actual)
+		expected := []string {
+			Write,
+			Sleep,
+			Write,
+			Sleep,
+			Write,
+			Sleep,
+			Write,
+		}
+		actual := sco.Calls
+
+		require.Equal(expected, actual)
+	})
 }
