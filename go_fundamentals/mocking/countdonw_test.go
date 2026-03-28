@@ -12,14 +12,14 @@ func TestCountdown(t *testing.T) {
 	t.Run("shold return the countdown", func(t *testing.T) {
 		require := require.New(t)
 		buffer := &bytes.Buffer{}
-		sleeper := &SpySleeper{}
+		sco := &SpyCountdownOperations{}
+		Countdown(buffer, sco)
 	
-		Countdown(buffer, sleeper)
 		expected := "3\n2\n1\nGo\n"
 		actual := buffer.String()
 	
 		require.Equal(expected, actual)
-		require.Equal(3, sleeper.Calls)
+		require.Equal(3, len(sco.Calls))
 	})
 
 	t.Run("should return the SpyCountdownOperation list", func(t *testing.T) {
